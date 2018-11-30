@@ -1,0 +1,172 @@
+/*
+ * The purpose of this assignment is to enhance the processing
+ * performed by the FileSum program. This program will read values 
+ * from the input file into an array prior to processing these values. 
+ * The input file contains exactly five double values, enough to fill 
+ * the array. There is no reason to check for an end of file condition. 
+ * The values read from the file are to be placed into the array in the 
+ * order in which they were read. The first value read from the first will
+ * be stored in the first element of the array, and so on. 
+ * After the array has elements, the program can close the input file and 
+ * no more processing will be done. The second part of this program is to 
+ * calculate and print the lowest value, highest value, sum of the values, 
+ * and the average of the values stored in the array. After processing this,
+ * the program will report the array position that contains this value. The program 
+ * should be able to accept any input file specified by the user of the program.
+*
+ */
+
+
+
+package filesumarray;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+/**
+ * 
+ *
+ * November 5, 2018 
+ * 
+ * @author miriam espino
+ *
+ */
+
+
+public class FileSumArray {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+   //Pre:    
+   // declare reference variable for array object
+   // create an array object
+   // assign the array object to reference variable
+   // populate the elements of the array 
+   // input file contains exactly five double values – enough to fill the array.
+        
+
+        
+        // Create a Scanner object for keyboard input
+        Scanner keyboard= new Scanner(System.in); 
+        Scanner fileIn = null;
+
+         
+         // Get the name of the file to read file values 
+         System.out.print("Enter the filename: ");
+         String fileName = keyboard.nextLine();
+         
+
+   
+        // attempting to open file 
+        try
+        {
+            // attempt to open the file 
+            fileIn = new Scanner(new FileInputStream(fileName));
+            System.out.print("Ready to process data from " + fileName + "\n"); 
+            System.out.println("\n");
+            
+          
+        }
+        catch (FileNotFoundException e)
+        {
+        
+
+        // if file could not be found program will terminate 
+         System.out.println("File not found.");
+         System.out.println("Program is ending.");
+         System.exit(0);
+            
+        }
+        
+        
+        
+        // create array object and assign it to reference variable         
+        double largest = 0, smallest = 0, sum = 0, mean = 0;
+        
+        double[] value = new double [5];
+        
+        // variable used as index for array
+         int index; 
+        int max =0;
+        int min=0;        
+ 
+        //Post:
+        // loop to display all elements of the array.
+        // The loop specifies an expected size of 5, hence, the
+        // highest index value will be 4. Program will identify the 
+        // largest, smallest, sum, and mean value stored in the array.
+        // It must also report the array position that contains this value. 
+        
+        for (index = 0; index <= 4 ;index ++)
+        {
+            value[index] = fileIn.nextDouble();
+           
+        }
+       
+       
+       index = 0;
+       
+           while (index <= 4)
+           {
+               
+           if (index == 0)
+           {
+               largest = value[0];
+               smallest = value[0];
+               
+           }
+           
+           else if (value[index] > largest)  
+           {
+                largest = value[index];  
+                max = index;  //stores index of current largest value 
+                
+           }
+            
+           else if (value[index] < smallest)
+           {
+                smallest = value[index];  
+                min = index; //stores index of current smallest value
+                
+           }
+           
+           index++;
+           }
+           
+           // all array values are added to calculate the sum
+           sum = value[0]+ value[1]+ value[2] + value[3] + value[4];
+           mean = sum / value.length;
+                   
+           
+           System.out.println("Largest: " +value[max]+ " " + "index: " + max ); 
+           System.out.println("Smallest: " + value[min] + " " + "index: " + min);
+           System.out.println("Sum: " + sum);
+           System.out.println("Mean: " + mean);
+           
+                
+           
+        fileIn.close(); // closing file
+        keyboard.close(); // closing scanner    
+        
+        
+        
+    
+             }        
+    
+
+    }
+    
+    
+    
+       
+    
+        
+    
+       
+    
+        
+    
